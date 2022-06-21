@@ -11,7 +11,7 @@ class Google extends Provider implements ProviderInterface
     protected $client_secret;
     protected $redirect_uri;
     protected $provider;
-    protected $scope;
+    protected $scope = [];
 
     public function __construct($provider, $client_id, $client_secret, $redirect_uri)
     {
@@ -19,11 +19,10 @@ class Google extends Provider implements ProviderInterface
         $this->client_id = $client_id;
         $this->client_secret = $client_secret;
         $this->redirect_uri = $redirect_uri;
+        $this->scope = implode(" ", [
+            "user",
+            "email"
+        ]);
     }
     
-    public function setDefaultScope(){
-        $this->scope = 'https://www.googleapis.com/auth/userinfo.email';
-    }
-
-
 }

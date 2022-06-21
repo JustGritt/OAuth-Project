@@ -4,7 +4,7 @@ namespace Sdk\Providers;
 
 abstract class Provider {
 
-   
+    
     public function getProvider()
     {
         return $this;
@@ -33,7 +33,7 @@ abstract class Provider {
 
     public function getAuthorizationUrl()
     {
-       return  $queryParams= http_build_query([
+        return  $queryParams= http_build_query([
             'client_id' => $this->getClientId(),
             'redirect_uri' => 'http://localhost:8081/callback',
             'response_type' => 'code',
@@ -41,4 +41,12 @@ abstract class Provider {
             "state" => bin2hex(random_bytes(16))
         ]);
     }
+
+    public function setDefaultScope(){
+        if(isset($this->scope ) && empty($this->scope)){
+            throw new Exception("Error Processing Request", 1);
+
+        }
+    }
+
 }

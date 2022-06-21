@@ -29,8 +29,20 @@ foreach ($configs as $config => $value) {
     $factory->create($provider, $client_id, $client_secret, $redirect_uri);
 }
 echo "</pre>";
+
 echo "<pre>";
-var_dump($factory->getProviders());
+$providers = $factory->getProviders();
+
+foreach($providers as $provider){
+    echo "<pre>";
+    echo $provider->getAuthorizationUrl() . "\n";
+    echo "getName: " . $provider->getName() . "\n";
+    echo "getClientId: " . $provider->getClientId() . "\n";
+    echo "getClientSecret: " . $provider->getClientSecret() . "\n";
+    echo "getScope: " . $provider->getScope() . "\n";
+    echo "</pre>";
+}
+
 echo "</pre>";
 
 die();
