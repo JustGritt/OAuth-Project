@@ -32,18 +32,6 @@ foreach ($configs as $config => $value) {
 }
 echo "</pre>";
 
-
-
-// $provider = ProviderFactory::create("Facebook", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
-// $provider2 = ProviderFactory::create("Google", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
-// echo "<pre>";
-// var_dump($provider);
-// echo "\n";
-// var_dump($provider2);
-// echo "</pre>";
-
-//var_dump($provider->getClientId());
-
 die();
 function login()
 {

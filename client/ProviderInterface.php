@@ -8,5 +8,5 @@ interface ProviderInterface
     public function getName();
     public function getClientId();
     public function getClientSecret();
-    public function getRedirectUri();
+    public function setDefaultScope();
 }

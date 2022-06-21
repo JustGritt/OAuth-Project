@@ -26,8 +26,19 @@ abstract class Provider {
         return $this->client_secret;
     }
 
-    public function getRedirectUri()
+    public function getScope()
     {
-        return $this->redirect_uri;
+        return $this->scope;
+    }
+
+    public function getAuthorizationUrl()
+    {
+       return  $queryParams= http_build_query([
+            'client_id' => $this->getClientId(),
+            'redirect_uri' => 'http://localhost:8081/callback',
+            'response_type' => 'code',
+            'scope' => $this->getScope(),
+            "state" => bin2hex(random_bytes(16))
+        ]);
     }
 }
