@@ -17,10 +17,12 @@ function myAutoloader($class)
 spl_autoload_register("Sdk\myAutoloader");
 
 $config_file = "config.json";
-$config = json_decode(file_get_contents($config_file), true);
+$configs = json_decode(file_get_contents($config_file), true);
 
 echo "<pre>";
-var_dump($config);
+foreach ($configs as $config) {
+    var_dump($config);
+}
 echo "</pre>";
 
 
