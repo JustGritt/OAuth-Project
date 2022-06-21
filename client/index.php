@@ -20,20 +20,28 @@ $config_file = "config.json";
 $configs = json_decode(file_get_contents($config_file), true);
 
 echo "<pre>";
-foreach ($configs as $config) {
-    var_dump($config);
+foreach ($configs as $config => $value) {
+    
+    $provider = $config;
+    $client_id = $value["client_id"];
+    $client_secret = $value["client_secret"];
+    $redirect_uri = $value["redirect_uri"];
+    
+    $provider = ProviderFactory::create($provider, $client_id, $client_secret, $redirect_uri);
+    var_dump($provider);
 }
 echo "</pre>";
 
 
-$provider = ProviderFactory::create("Facebook", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
-$provider2 = ProviderFactory::create("Google", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
 
-echo "<pre>";
-var_dump($provider);
-echo "\n";
-var_dump($provider2);
-echo "</pre>";
+// $provider = ProviderFactory::create("Facebook", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
+// $provider2 = ProviderFactory::create("Google", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
+// echo "<pre>";
+// var_dump($provider);
+// echo "\n";
+// var_dump($provider2);
+// echo "</pre>";
+
 //var_dump($provider->getClientId());
 
 die();
