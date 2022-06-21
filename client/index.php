@@ -1,7 +1,7 @@
 <?php
 
 namespace Sdk;
-
+use Sdk\Providers;
 //require "config.json";
 
 function myAutoloader($class)
@@ -18,7 +18,7 @@ spl_autoload_register("Sdk\myAutoloader");
 
 $config_file = "config.json";
 $configs = json_decode(file_get_contents($config_file), true);
-
+$factory  = new ProviderFactory();
 echo "<pre>";
 foreach ($configs as $config => $value) {
     
@@ -26,10 +26,11 @@ foreach ($configs as $config => $value) {
     $client_id = $value["client_id"];
     $client_secret = $value["client_secret"];
     $redirect_uri = $value["redirect_uri"];
-    
-    $provider = ProviderFactory::create($provider, $client_id, $client_secret, $redirect_uri);
-    var_dump($provider);
+    $factory->create($provider, $client_id, $client_secret, $redirect_uri);
 }
+echo "</pre>";
+echo "<pre>";
+var_dump($factory->getProviders());
 echo "</pre>";
 
 die();

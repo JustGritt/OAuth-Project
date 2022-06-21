@@ -1,15 +1,17 @@
 <?php 
 
 namespace Sdk;
-abstract class ProviderFactory
+
+class ProviderFactory
 {
+    protected $providers = [];
     /**
      * @param string $provider
      * @param string $client_id
      * @param string $client_secret
      * @param string $redirect_uri
      */
-    public static function create($provider, $client_id, $client_secret, $redirect_uri)
+    public function create($provider, $client_id, $client_secret, $redirect_uri)
     {
         
         $reflection =  new \ReflectionClass("Sdk\Providers\\" .$provider);
@@ -17,7 +19,15 @@ abstract class ProviderFactory
             throw new \RuntimeException("Class '$provider' does not implement ProviderInterface");
         }
         $className = "Sdk\\Providers\\" . ucfirst($provider);
-        return new $className($provider, $client_id, $client_secret, $redirect_uri);
+        $provider = new $className($provider, $client_id, $client_secret, $redirect_uri);
+        $this->providers[] = $provider;
+        return $provider;
         
+    }
+
+    
+    public function getProviders()
+    {
+        return $this->providers;
     }
 }
