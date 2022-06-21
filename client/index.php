@@ -17,21 +17,31 @@ function myAutoloader($class)
 spl_autoload_register("Sdk\myAutoloader");
 
 $config_file = "config.json";
-$config = json_decode(file_get_contents($config_file), true);
+$configs = json_decode(file_get_contents($config_file), true);
 
 echo "<pre>";
-var_dump($config);
+foreach ($configs as $config => $value) {
+    
+    $provider = $config;
+    $client_id = $value["client_id"];
+    $client_secret = $value["client_secret"];
+    $redirect_uri = $value["redirect_uri"];
+    
+    $provider = ProviderFactory::create($provider, $client_id, $client_secret, $redirect_uri);
+    var_dump($provider);
+}
 echo "</pre>";
 
 
-$provider = ProviderFactory::create("Facebook", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
-$provider2 = ProviderFactory::create("Google", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
 
-echo "<pre>";
-var_dump($provider);
-echo "\n";
-var_dump($provider2);
-echo "</pre>";
+// $provider = ProviderFactory::create("Facebook", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
+// $provider2 = ProviderFactory::create("Google", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
+// echo "<pre>";
+// var_dump($provider);
+// echo "\n";
+// var_dump($provider2);
+// echo "</pre>";
+
 //var_dump($provider->getClientId());
 
 die();
