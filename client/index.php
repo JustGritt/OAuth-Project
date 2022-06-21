@@ -2,8 +2,7 @@
 
 namespace Sdk;
 
-use Sdk\Providers;
-include 'conf.inc.php';
+require "config.json";
 
 function myAutoloader($class)
 {
@@ -46,7 +45,7 @@ function login()
             <input type='submit' value='Login'/>
         </form>
     ";
-    echo "<a href=\"http://localhost:8080/auth?{$queryParams}\">Login with OauthServer</a>";
+    echo "<a href=\"http://localhost:8080/auth?{$queryParams}\">Login with OauthServer</a><br>";
     $queryParams= http_build_query([
         'client_id' => FACEBOOK_CLIENT_ID,
         'redirect_uri' => 'http://localhost:8081/fb_callback',
