@@ -2,19 +2,34 @@
 
 namespace Sdk;
 
-require "conf.inc.php";
+use Sdk\Providers;
+include 'conf.inc.php';
 
 function myAutoloader($class)
 {
     $class = str_replace("Sdk\\","",$class);
     $class = str_replace("\\", "/",$class);
-    if(file_exists($class.".class.php")){
-        include $class.".class.php";
+    if(!file_exists($class.".php")){
+        throw new \RuntimeException("Class '$class' not found");
     }
+    include $class.".php";
 }
 
 spl_autoload_register("Sdk\myAutoloader");
 
+
+
+$provider = ProviderFactory::create("Facebook", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
+$provider2 = ProviderFactory::create("Google", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");
+
+echo "<pre>";
+var_dump($provider);
+echo "\n";
+var_dump($provider2);
+echo "</pre>";
+//var_dump($provider->getClientId());
+
+die();
 function login()
 {
     $queryParams= http_build_query([
