@@ -30,31 +30,25 @@ foreach ($configs as $config => $value) {
 }
 echo "</pre>";
 
-echo "<pre>";
-$providers = $factory->getProviders();
+// echo "<pre>";
+// $providers = $factory->getProviders();
 
-foreach($providers as $provider){
-    echo "<pre>";
-    echo $provider->getAuthorizationUrl() . "\n";
-    echo "getName: " . $provider->getName() . "\n";
-    echo "getClientId: " . $provider->getClientId() . "\n";
-    echo "getClientSecret: " . $provider->getClientSecret() . "\n";
-    echo "getScope: " . $provider->getScope() . "\n";
-    echo "</pre>";
-}
+// foreach($providers as $provider){
+//     echo "<pre>";
+//     echo $provider->getBaseUri() . $provider->getAuthorizationUrl() . "\n";
+//     echo "</pre>";
+// }
+// echo "</pre>";
 
-echo "</pre>";
-
-die();
-function login()
+function login($factory)
 {
-    $queryParams= http_build_query([
-        'client_id' => OAUTH_CLIENT_ID,
-        'redirect_uri' => 'http://localhost:8081/callback',
-        'response_type' => 'code',
-        'scope' => 'basic',
-        "state" => bin2hex(random_bytes(16))
-    ]);
+    // $queryParams= http_build_query([
+    //     'client_id' => OAUTH_CLIENT_ID,
+    //     'redirect_uri' => 'http://localhost:8081/callback',
+    //     'response_type' => 'code',
+    //     'scope' => 'basic',
+    //     "state" => bin2hex(random_bytes(16))
+    // ]);
     echo "
         <form action='/callback' method='post'>
             <input type='text' name='username'/>
@@ -62,15 +56,28 @@ function login()
             <input type='submit' value='Login'/>
         </form>
     ";
-    echo "<a href=\"http://localhost:8080/auth?{$queryParams}\">Login with OauthServer</a><br>";
-    $queryParams= http_build_query([
-        'client_id' => FACEBOOK_CLIENT_ID,
-        'redirect_uri' => 'http://localhost:8081/fb_callback',
-        'response_type' => 'code',
-        'scope' => 'public_profile,email',
-        "state" => bin2hex(random_bytes(16))
-    ]);
-    echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Login with Facebook</a>";
+    // echo "<a href=\"http://localhost:8080/auth?{$queryParams}\">Login with OauthServer</a><br>";
+    // $queryParams= http_build_query([
+    //     'client_id' => FACEBOOK_CLIENT_ID,
+    //     'redirect_uri' => 'http://localhost:8081/fb_callback',
+    //     'response_type' => 'code',
+    //     'scope' => 'public_profile,email',
+    //     "state" => bin2hex(random_bytes(16))
+    // ]);
+    // echo "<a href=\"https://www.facebook.com/v2.10/dialog/oauth?{$queryParams}\">Login with Facebook</a>";
+
+    $providers = $factory->getProviders();
+    foreach($providers as $provider){
+
+        echo "<pre>";
+        // var_dump($provider->getBaseUri() . $provider->getAuthorizationUrl() . "\n");
+        $link = $provider->getBaseUri() . $provider->getAuthorizationUrl();
+        // var_dump(urlencode('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email%27'));
+        echo "<a href=\" $link \">Login with " . $provider->getName() . "</a><br>";
+        
+        echo "</pre>";
+    }
+
 }
 
 // Exchange code for token then get user info
@@ -140,7 +147,7 @@ function fbcallback()
 $route = $_SERVER["REQUEST_URI"];
 switch (strtok($route, "?")) {
     case '/login':
-        login();
+        login($factory);
         break;
     case '/callback':
         callback();

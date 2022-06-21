@@ -5,8 +5,8 @@
         "redirect_uri" : "http://localhost:8081/login"
     },
     "google" : {
-        "client_id" : "427778517734-qf7d5gt7t0los4r2ngu1q7n6n5lmqcto.apps.googleusercontent.com",
-        "client_secret" : "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",
+        "client_id" : "427778517734-sio03nigtg8i8cqraaqf9lr1rai0km1h.apps.googleusercontent.com",
+        "client_secret" : "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",
         "redirect_uri" : "http://localhost:8081/login"
     }
 }

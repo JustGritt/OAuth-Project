@@ -5,9 +5,14 @@ namespace Sdk\Providers;
 abstract class Provider {
 
     
-    public function getProvider()
+    public function getBaseUri()
     {
-        return $this;
+        return $this->base_uri;
+    }
+
+    public function getState()
+    {
+        return $this->state;
     }
 
     public function getName()
@@ -31,6 +36,12 @@ abstract class Provider {
         return $this->scope;
     }
 
+    public function setDefaultScope(){
+        if(isset($this->scope ) && empty($this->scope)){
+            throw new Exception("Error Processing Request", 1);
+        }
+    }
+
     public function getAuthorizationUrl()
     {
         return  $queryParams= http_build_query([
@@ -38,15 +49,9 @@ abstract class Provider {
             'redirect_uri' => 'http://localhost:8081/callback',
             'response_type' => 'code',
             'scope' => $this->getScope(),
-            "state" => bin2hex(random_bytes(16))
+            // "state" => bin2hex(random_bytes(16))
+            'state' => $this->getState()
         ]);
-    }
-
-    public function setDefaultScope(){
-        if(isset($this->scope ) && empty($this->scope)){
-            throw new Exception("Error Processing Request", 1);
-
-        }
     }
 
 }

@@ -51,4 +51,3 @@ To add a new provider to the project, you have to execute the following actions:
 ```bash
 docker-compose exec php php artisan oauth:add-provider --provider=<provider_name>
 ```
-
