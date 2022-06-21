@@ -1,0 +1,18 @@
+{
+    "oauth" : {
+        "access_token" : "621f59c71bc35",
+        "access_token_secret" : "621f59c71bc36",
+        "redirect_uri" : ["http://localhost:8081/callback"]
+    },
+    "facebook" : {
+        "app_id" : "1311135729390173",
+        "app_secret" : "fc5e25661fe961ab85d130779357541e",
+        "default_graph_version" : "v2.2",
+        "redirect_uri" : ["http://localhost:8081/facebook_callback"]
+    },
+    "google" : {
+        "client_id" : "427778517734-qf7d5gt7t0los4r2ngu1q7n6n5lmqcto.apps.googleusercontent.com",
+        "client_secret" : "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",
+        "redirect_uris" : ["http://localhost:8081/google_callback"]
+    }
+}
