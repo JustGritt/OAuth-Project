@@ -144,6 +144,7 @@ function fbcallback()
     echo "Hello {$user['name']}";
 }
 
+
 $route = $_SERVER["REQUEST_URI"];
 switch (strtok($route, "?")) {
     case '/login':

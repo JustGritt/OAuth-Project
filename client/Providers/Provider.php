@@ -44,7 +44,7 @@ abstract class Provider {
 
     public function getAuthorizationUrl()
     {
-        return  $queryParams= http_build_query([
+         $queryParams= http_build_query([
             'client_id' => $this->getClientId(),
             'redirect_uri' => 'http://localhost:8081/callback',
             'response_type' => 'code',
@@ -52,6 +52,18 @@ abstract class Provider {
             // "state" => bin2hex(random_bytes(16))
             'state' => $this->getState()
         ]);
+        $link = $provider->getAuthorizationUrl . $queryParams;
+        return $link;
     }
 
+    public function getAccesToken()
+    {
+        return $queryParams= http_build_query([
+            'client_id' => $this->getClientId(),
+            'client_secret' => $this->getClientSecret(),
+            'redirect_uri' => 'http://localhost:8081/callback',
+            'grant_type' => 'authorization_code',
+            'code' => $_GET['code']
+        ]);
+    }
 }
