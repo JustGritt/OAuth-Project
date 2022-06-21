@@ -2,7 +2,7 @@
 
 namespace Sdk;
 
-require "config.json";
+//require "config.json";
 
 function myAutoloader($class)
 {
@@ -16,6 +16,12 @@ function myAutoloader($class)
 
 spl_autoload_register("Sdk\myAutoloader");
 
+$config_file = "config.json";
+$config = json_decode(file_get_contents($config_file), true);
+
+echo "<pre>";
+var_dump($config);
+echo "</pre>";
 
 
 $provider = ProviderFactory::create("Facebook", "adsfdasfdasf", "fadsfadsf", "http://www.google.com");

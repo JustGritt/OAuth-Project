@@ -4,7 +4,7 @@ namespace Sdk\Providers;
 use Sdk\ProviderInterface;
 use Sdk\ProviderFactory;
 
-class Facebook extends ProviderFactory implements ProviderInterface
+class Facebook extends Provider implements ProviderInterface
 {
     protected $client_id;
     protected $client_secret;
@@ -19,29 +19,4 @@ class Facebook extends ProviderFactory implements ProviderInterface
         $this->redirect_uri = $redirect_uri;
     }
 
-    public function getProvider()
-    {
-        return $this;
-    }
-
-    public function getName()
-    {
-        echo "Creating Facebook provider..." . $this->provider;
-        return $this->provider;
-    }
-
-    public function getClientId()
-    {
-        return $this->client_id;
-    }
-
-    public function getClientSecret()
-    {
-        return $this->client_secret;
-    }
-
-    public function getRedirectUri()
-    {
-        return $this->redirect_uri;
-    }
 }
