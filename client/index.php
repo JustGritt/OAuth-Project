@@ -2,7 +2,6 @@
 
 namespace Sdk;
 use Sdk\Providers;
-//require "config.json";
 
 function myAutoloader($class)
 {
@@ -17,9 +16,13 @@ function myAutoloader($class)
 spl_autoload_register("Sdk\myAutoloader");
 
 $config_file = "config.json";
+if (!file_exists($config_file)) {
+    throw new \RuntimeException("Config file '$config_file' not found");
+}
 $configs = json_decode(file_get_contents($config_file), true);
 $factory  = new ProviderFactory();
-echo "<pre>";
+
+// Initilisation of providers
 foreach ($configs as $config => $value) {
     
     $provider = $config;
@@ -28,7 +31,6 @@ foreach ($configs as $config => $value) {
     $redirect_uri = $value["redirect_uri"];
     $factory->create($provider, $client_id, $client_secret, $redirect_uri);
 }
-echo "</pre>";
 
 // echo "<pre>";
 // $providers = $factory->getProviders();
@@ -68,18 +70,14 @@ function login($factory)
 
     $providers = $factory->getProviders();
     foreach($providers as $provider){
-
         echo "<pre>";
-        // var_dump($provider->getBaseUri() . $provider->getAuthorizationUrl() . "\n");
-        $link = $provider->getBaseUri() . $provider->getAuthorizationUrl();
-        // var_dump(urlencode('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email%27'));
-        echo "<a href=\" $link \">Login with " . $provider->getName() . "</a><br>";
-        
+        echo "<a href=\" {$provider->getAuthorizationUrl()} \">Login with " . $provider->getName() . "</a><br>";
         echo "</pre>";
     }
 
 }
 
+/*
 // Exchange code for token then get user info
 function callback()
 {
@@ -116,10 +114,33 @@ function callback()
     $user = json_decode($response, true);
     echo "Hello {$user['lastname']} {$user['firstname']}";
 }
-
-function fbcallback()
+*/
+function callback($factory)
 {
+
     ["code" => $code, "state" => $state] = $_GET;
+    //get the provider instance
+    echo "<pre>";
+    $provider = $factory->getProvider($_GET["state"]);
+    var_dump($provider->getAccessToken());
+    echo "</pre>";
+  
+    
+    die();
+    switch ($_GET["state"]) {
+        case "facebook":
+            $provider = $factory->getAccesToken();
+            break;
+        case "google":
+            $provider = $factory->getAccesToken();
+            break;
+        case "Oauth":
+            $provider = $factory->getAccesToken();
+            break;
+        default:
+            throw new \RuntimeException("Provider '{$_GET["state"]}' not found");
+    } 
+
 
     $specifParams = [
             'code' => $code,
@@ -127,8 +148,8 @@ function fbcallback()
         ];
 
     $queryParams = http_build_query(array_merge([
-        'client_id' => FACEBOOK_CLIENT_ID,
-        'client_secret' => FACEBOOK_CLIENT_SECRET,
+        'client_id' => '1311135729390173',
+        'client_secret' => 'fc5e25661fe961ab85d130779357541e',
         'redirect_uri' => 'http://localhost:8081/fb_callback',
     ], $specifParams));
     $response = file_get_contents("https://graph.facebook.com/v2.10/oauth/access_token?{$queryParams}");
@@ -151,7 +172,7 @@ switch (strtok($route, "?")) {
         login($factory);
         break;
     case '/callback':
-        callback();
+        callback($factory);
         break;
     case '/fb_callback':
         fbcallback();

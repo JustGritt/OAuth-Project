@@ -5,41 +5,18 @@ namespace Sdk\Providers;
 abstract class Provider {
 
     
-    public function getBaseUri()
-    {
-        return $this->base_uri;
-    }
+    abstract static function getState();
+    abstract static function getName();
+    abstract static function getScope();
+    abstract static function getBaseAuthorizationUrl();
+    //abstract static function getGrantType();
 
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    public function getName()
-    {
-        echo "Creating Facebook provider..." . $this->provider;
-        return $this->provider;
-    }
-
-    public function getClientId()
-    {
+    public function getclientId() {
         return $this->client_id;
     }
 
-    public function getClientSecret()
-    {
+    public function getClientSecret() {
         return $this->client_secret;
-    }
-
-    public function getScope()
-    {
-        return $this->scope;
-    }
-
-    public function setDefaultScope(){
-        if(isset($this->scope ) && empty($this->scope)){
-            throw new Exception("Error Processing Request", 1);
-        }
     }
 
     public function getAuthorizationUrl()
@@ -52,18 +29,24 @@ abstract class Provider {
             // "state" => bin2hex(random_bytes(16))
             'state' => $this->getState()
         ]);
-        $link = $provider->getAuthorizationUrl . $queryParams;
+        $link = $this->getBaseAuthorizationUrl() . $queryParams;
         return $link;
     }
 
-    public function getAccesToken()
+    public function getAccessToken()
     {
-        return $queryParams= http_build_query([
+        $queryParams= http_build_query([
             'client_id' => $this->getClientId(),
             'client_secret' => $this->getClientSecret(),
             'redirect_uri' => 'http://localhost:8081/callback',
             'grant_type' => 'authorization_code',
             'code' => $_GET['code']
         ]);
+        $link = $this->getBaseAccessTokenUrl() . $queryParams;
+        var_dump($link);
+        $response = file_get_contents($link.$queryParams);
+        $token = json_decode($response, true);
+        var_dump($token);
+        return $token;
     }
 }

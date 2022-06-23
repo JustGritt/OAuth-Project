@@ -2,11 +2,16 @@
     "facebook" : {
         "client_id" : "1311135729390173",
         "client_secret" : "fc5e25661fe961ab85d130779357541e",
-        "redirect_uri" : "http://localhost:8081/login"
+        "redirect_uri" : "http://localhost:8081/callback"
     },
     "google" : {
         "client_id" : "427778517734-sio03nigtg8i8cqraaqf9lr1rai0km1h.apps.googleusercontent.com",
         "client_secret" : "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",
-        "redirect_uri" : "http://localhost:8081/login"
+        "redirect_uri" : "http://localhost:8081/callback"
+    },
+    "Oauth" : {
+        "client_id" : "621f59c71bc35",
+        "client_secret" : "621f59c71bc36",
+        "redirect_uri" : "http://localhost:8081/callback"
     }
 }
