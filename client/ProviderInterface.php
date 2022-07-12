@@ -4,9 +4,10 @@ namespace Sdk;
 
 interface ProviderInterface
 {
-    public function getBaseUri();
-    public function getName();
+    public static function getName();
+    public static function getState();
+    public static function getScope();
+    public static function getBaseAuthorizationUrl();
     public function getClientId();
-    public function getClientSecret();
-    public function setDefaultScope();
+    //public static function getGrantType();
 }

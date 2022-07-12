@@ -23,6 +23,18 @@ class Google extends Provider implements ProviderInterface
         return "https://accounts.google.com/o/oauth2/v2/auth?";
     }
 
+    //TODO: Implement getBaseAccessTokenUrl()
+    public static function getBaseAccessTokenUrl()
+    {
+        return "https://www.googleapis.com/oauth2/v4/token?";
+    }
+
+    public static function getBaseMeUrl()
+    {
+        return "https://www.googleapis.com/oauth2/v2/userinfo?";
+    }
+
+
     public static function getName()
     {
         return "Google";
