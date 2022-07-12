@@ -50,4 +50,18 @@ class Oauth extends Provider implements ProviderInterface
         ]);
     }
 
+    /*
+    public static function validateToken($token)
+    {
+        $access_token = $token['access_token'];
+        $context = stream_context_create([
+            'http' => [
+                'header' => "Authorization: Bearer {$access_token}"
+                ]
+            ]);
+        $response = file_get_contents("http://server:8080/me", false, $context);
+        $user = json_decode($response, true);
+        return $user;
+    }*/
+
 }

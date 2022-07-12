@@ -51,4 +51,19 @@ class Google extends Provider implements ProviderInterface
             "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
         ]);
     }
+
+    /*
+    public static function validateToken($token)
+    {
+        $access_token = $token['access_token'];
+        $context = stream_context_create([
+            'http' => [
+                'header' => "Authorization: Bearer {$access_token}"
+                ]
+            ]);
+        $response = file_get_contents('https://www.googleapis.com/oauth2/v2/userinfo?fields=id,given_name,family_name,email,verified_email', false, $context);
+        $user = json_decode($response, true);
+
+        return $user;
+    }*/
 }

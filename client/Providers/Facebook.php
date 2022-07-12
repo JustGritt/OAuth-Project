@@ -50,4 +50,10 @@ class Facebook extends Provider implements ProviderInterface
         ]);
     }
 
+    /*
+    public static function validateToken($token){
+        return;
+    }
+    */
+
 }
