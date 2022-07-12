@@ -117,6 +117,7 @@ function callback()
 */
 function callback($factory)
 {
+
     ["code" => $code, "state" => $state] = $_GET;
     //get the provider instance
     echo "<pre>";
