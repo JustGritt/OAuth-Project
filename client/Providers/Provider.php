@@ -22,7 +22,7 @@ abstract class Provider implements ProviderInterface{
 
     public function getAuthorizationUrl()
     {
-         $queryParams= http_build_query([
+        $queryParams= http_build_query([
             'client_id' => $this->getClientId(),
             'redirect_uri' => 'http://localhost:8081/callback',
             'response_type' => 'code',
