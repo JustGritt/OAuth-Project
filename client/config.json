@@ -18,5 +18,10 @@
         "client_id" : "75126d4175d545a8a82fce10cad9588a",
         "client_secret" : "048bed7e66e44fa6b436536118baa7ad",
         "redirect_uri" : "http://localhost:8081/callback"
+    },
+    "Discord" : {
+        "client_id" : "996530065238139020",
+        "client_secret" : "V2yAeyfD6Y025rqTmbm2l0lQ6uR1HwQP",
+        "redirect_uri" : "http://localhost:8081/callback"
     }
 }
