@@ -51,9 +51,18 @@ class Facebook extends Provider implements ProviderInterface
     }
 
     /*
-    public static function validateToken($token){
-        return;
-    }
-    */
+    public function validateToken($token)
+    {
+        $access_token = $token['access_token'];
+        $context = stream_context_create([
+            'http' => [
+                'header' => "Authorization: Bearer {$access_token}"
+                ]
+            ]);
+        $response = file_get_contents($this->getBaseMeUrl(), false, $context);
+        var_dump($response);
+        $user = json_decode($response, true);
 
+        return $user;
+    }*/
 }

@@ -53,7 +53,7 @@ class Google extends Provider implements ProviderInterface
     }
 
     /*
-    public static function validateToken($token)
+    public function validateToken($token)
     {
         $access_token = $token['access_token'];
         $context = stream_context_create([

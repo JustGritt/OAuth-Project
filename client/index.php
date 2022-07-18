@@ -57,6 +57,9 @@ function callback($factory)
         $provider = $factory->getProvider("Oauth");
         $token = $provider->getAccessToken();
         $result = $provider->validateToken($token);
+        echo "<pre>";
+        print_r($provider->validateToken($token));
+        echo "</pre>";
         
         return $provider->toString($result);
     }

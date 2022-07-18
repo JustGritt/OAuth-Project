@@ -5,7 +5,7 @@ use Sdk\ProviderInterface;
 use Sdk\ProviderFactory;
 
 
-class Oauth extends Provider implements ProviderInterface
+class Spotify extends Provider implements ProviderInterface
 {
     protected $client_id;
     protected $client_secret;
@@ -20,38 +20,41 @@ class Oauth extends Provider implements ProviderInterface
     
     public static function getBaseAuthorizationUrl()
     {
-        return "http://localhost:8080/auth?";
+        return "https://accounts.spotify.com/authorize?";
     }
 
+    //TODO: Implement getBaseAccessTokenUrl()
     public static function getBaseAccessTokenUrl()
     {
-        return "http://server:8080/token?";
+        return "https://accounts.spotify.com/api/token?";
     }
 
     public static function getBaseMeUrl()
     {
-        return "http://server:8080/me";
+        return "https://api.spotify.com/v1/me?";
     }
+
 
     public static function getName()
     {
-        return "Oauth";
+        return "Spotify";
     }
 
     public static function getState()
     {
-        return "Oauth";
+        return "Spotify";
     }
 
     public static function getScope()
     {
         return implode(" ", [
-            "basic"
+            "user-read-email",
+            "user-read-private"
         ]);
     }
 
-
     /*
+    
     public function validateToken($token)
     {
         $access_token = $token['access_token'];
@@ -60,10 +63,10 @@ class Oauth extends Provider implements ProviderInterface
                 'header' => "Authorization: Bearer {$access_token}"
                 ]
             ]);
-        $response = file_get_contents("http://server:8080/me", false, $context);
+        $response = file_get_contents('https://api.spotify.com/v1/me?', false, $context);
         $user = json_decode($response, true);
-        return $user;
-    }
-    */
 
+        return $user;
+    }*/
+    
 }
