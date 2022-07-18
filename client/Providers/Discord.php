@@ -31,7 +31,7 @@ class Discord extends Provider implements ProviderInterface
 
     public static function getBaseMeUrl()
     {
-        return "https://discord.com/api/me?";
+        return "https://discord.com/api/users/@me?";
     }
 
 

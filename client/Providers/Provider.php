@@ -22,7 +22,7 @@ abstract class Provider implements ProviderInterface{
 
     public function getAuthorizationUrl()
     {
-         $queryParams= http_build_query([
+        $queryParams= http_build_query([
             'client_id' => $this->getClientId(),
             'redirect_uri' => 'http://localhost:8081/callback',
             'response_type' => 'code',
@@ -53,11 +53,20 @@ abstract class Provider implements ProviderInterface{
                 $surname = ucfirst($user[1]);
                 echo "Hello {$name} {$surname}";
                 break;
+            case 'Facebook':
+                $user = explode(" ", $user['display_name']);
+                $name = ucfirst($user[0]);
+                $surname = ucfirst($user[1]);
+                echo "Hello {$name} {$surname}";
+                break;
+            case 'Discord':
+                echo "Hello {$user['username']}";
+                break;
             default:
                 echo "Hello {$user['lastname']} {$user['firstname']}";
                 break;
         }
-       
+        
     }
 
     public function GetAccessToken() {
@@ -113,7 +122,6 @@ abstract class Provider implements ProviderInterface{
                 ]
             ]);
         $response = file_get_contents($this->getBaseMeUrl(), false, $context);
-        var_dump($response);
         $user = json_decode($response, true);
 
         return $user;
