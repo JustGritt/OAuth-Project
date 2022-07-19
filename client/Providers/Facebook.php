@@ -34,7 +34,7 @@ class Facebook extends Provider implements ProviderInterface
 
     public static function getName()
     {
-        return "Facbook";
+        return "Facebook";
     }
 
     public static function getState()
